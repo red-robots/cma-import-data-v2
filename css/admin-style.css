@@ -1,0 +1,41 @@
+.widefat th.column-columnname{
+    font-weight: bold;
+}
+
+.widefat thead tr th{
+    font-weight: bold;
+}
+
+ul#acffields {
+    list-style: square;
+    margin: 0 0 20px 30px;
+}
+ul#acffields li {
+    margin: 0 0;
+    padding: 0 0;
+}
+
+.count-info {
+    font-size: 15px;
+	margin-top: 30px;
+    margin-bottom: 8px;
+    padding-left: 2px;
+}
+#importPropertiesForm .importType {
+    margin-bottom: 10px;
+}
+#importPropertiesForm .importType label {
+    display: inline-block;
+    margin: 0 0;
+    position: relative;
+}
+#importPropertiesForm .submitfield {
+    margin-top: 10px;
+}
+#importPropertiesForm label.itype {
+    display: inline-block;
+    margin-right: 12px;
+}
+#importPropertiesForm label.itype input {
+    margin-right: 2px;
+}
