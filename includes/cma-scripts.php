@@ -122,20 +122,14 @@ function do_import_entries($csvFileData,$data,$action) {
                                         /* Custom Fields */
                                         foreach($columns as $j=>$col) {
                                             $subFieldVal = ($values[$j]) ? $values[$j] : '';
-                                            /* Google Map Coordinates */
-                                            if( in_array($col, $coordinates) ) {
-                                                $selector = 'gmapLatLong_'.$col;
-                                                update_field( $selector, $subFieldVal, $post_id );
-                                            } else {
-                                                update_field( $col, $subFieldVal, $post_id );
-                                            }
+                                            $column_name = ( in_array($col, $coordinates) ) ? 'gmapLatLong_'.$col : $col;
+                                            cma_update_post_meta( $post_id, $column_name, $subFieldVal );
                                         }
                                         $result['items'][] = $post_id;
 
                                     }  else {
                                         $result['duplicates'][] = $post_id;
                                     }
-
 
 
                                 } else {
@@ -150,13 +144,8 @@ function do_import_entries($csvFileData,$data,$action) {
                                             /* Custom Fields */
                                             foreach($columns as $j=>$col) {
                                                 $subFieldVal = ($values[$j]) ? $values[$j] : '';
-                                                /* Google Map Coordinates */
-                                                if( in_array($col, $coordinates) ) {
-                                                    $selector = 'gmapLatLong_'.$col;
-                                                    update_field( $selector, $subFieldVal, $post_id );
-                                                } else {
-                                                    update_field( $col, $subFieldVal, $post_id );
-                                                }
+                                                $column_name = ( in_array($col, $coordinates) ) ? 'gmapLatLong_'.$col : $col;
+                                                cma_update_post_meta( $post_id, $column_name, $subFieldVal );
                                             }
 
                                             $result['items'][] = $post_id;
@@ -205,11 +194,12 @@ function get_property_fieldnames() {
         'coupon_code'=>'Coupon Code',
         'community_name'=>'Community Name',
         'address'=>'Address',
+        'google_map'=>'Google Map Address',
         'manager_name'=>'Manager Name',
         'manager_phone'=>'Manager Phone',
         'manager_email'=>'Manager Email',
-        'latitude'=>'Latitude',
-        'longitude'=>'Longitude'
+        // 'latitude'=>'Latitude',
+        // 'longitude'=>'Longitude'
     );
     return $custom_fields;
 }
@@ -296,15 +286,31 @@ function cma_cpt_init() {
     }
 }
 
-function cma_display_search_form($atts, $content = null) {
+function cma_display_search_form($atts) {
+    $currentLink = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+    $output = '';
     $a = shortcode_atts( array(
         'perpage' => 20,
         'action' => '' 
     ), $atts );
 
-    require_once plugin_dir_path( __FILE__ ) . 'custom-search.php';
-    require_once plugin_dir_path( __FILE__ ) . 'search-results.php';
-
+    if($a['action']) {
+        if (strpos($currentLink, $a['action']) !== false) {
+            $a['action'] = '';
+        }
+        ob_start();
+        require plugin_dir_path( __FILE__ ) . 'custom-search.php';
+        $output = ob_get_contents();
+        ob_end_clean();
+        return $output;
+    } else {
+        ob_start();
+        require_once plugin_dir_path( __FILE__ ) . 'custom-search.php';
+        require_once plugin_dir_path( __FILE__ ) . 'search-results.php';
+        $output = ob_get_contents();
+        ob_end_clean();
+        return $output;
+    }
 }
 add_shortcode('cma-search-form', 'cma_display_search_form');
 
@@ -370,20 +376,16 @@ function wpa_search_page_template( $page_template )
 }
 
 
-function wp_cma_pagination( $custom_query ) {
-    //global $wp_query;
-        $big = 999999999; // need an unlikely integer
-            echo paginate_links( array(
-                'base'                  => '%_%',
-                'format'                => '?paged=%#%',
-                'current'               => max( 1, get_query_var('paged') ),
-                'total'                 => $custom_query->max_num_pages,                
-                'prev_next'             => true,
-                'prev_text'             => __('« Previous'),
-                'next_text'             => __('Next »'),
-                'type'                  => 'plain',
-                
-        ) );
+function wp_cma_pagination( $custom_query, $paged ) {
+    echo paginate_links( array(
+        'base' => @add_query_arg('pg','%#%'),
+        'format' => '?paged=%#%',
+        'current' => $paged,
+        'total' => $custom_query->max_num_pages,
+        'prev_text' => __( '&laquo;', 'cma' ),
+        'next_text' => __( '&raquo;', 'cma' ),
+        'type' => 'plain'
+    ) );
 }
 
 

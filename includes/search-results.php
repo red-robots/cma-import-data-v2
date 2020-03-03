@@ -70,16 +70,7 @@
             if ($total_pages > 1){ ?>
                 <div id="pagination" class="pagination pagination-search" data-pageurl="<?php echo get_permalink(); ?>">
                     <?php
-                        $pagination = array(
-                            'base' => @add_query_arg('pg','%#%'),
-                            'format' => '?paged=%#%',
-                            'current' => $paged,
-                            'total' => $total_pages,
-                            'prev_text' => __( '&laquo;', 'cma' ),
-                            'next_text' => __( '&raquo;', 'cma' ),
-                            'type' => 'plain'
-                        );
-                        echo paginate_links($pagination);
+                        wp_cma_pagination($query,$paged);
                     ?>
                 </div>
                 <?php

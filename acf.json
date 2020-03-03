@@ -61,10 +61,10 @@
                 "maxlength": ""
             },
             {
-                "key": "field_5e5c6e829cf7f",
-                "label": "Google Map Coordinates",
-                "name": "gmapLatLong",
-                "type": "group",
+                "key": "field_5e5d1fad0a587",
+                "label": "Google Map",
+                "name": "google_map",
+                "type": "google_map",
                 "instructions": "",
                 "required": 0,
                 "conditional_logic": 0,
@@ -73,47 +73,10 @@
                     "class": "",
                     "id": ""
                 },
-                "layout": "block",
-                "sub_fields": [
-                    {
-                        "key": "field_5e5c6ea59cf80",
-                        "label": "Latitude",
-                        "name": "latitude",
-                        "type": "text",
-                        "instructions": "",
-                        "required": 0,
-                        "conditional_logic": 0,
-                        "wrapper": {
-                            "width": "",
-                            "class": "",
-                            "id": ""
-                        },
-                        "default_value": "",
-                        "placeholder": "",
-                        "prepend": "",
-                        "append": "",
-                        "maxlength": ""
-                    },
-                    {
-                        "key": "field_5e5c6eac9cf81",
-                        "label": "Longitude",
-                        "name": "longitude",
-                        "type": "text",
-                        "instructions": "",
-                        "required": 0,
-                        "conditional_logic": 0,
-                        "wrapper": {
-                            "width": "",
-                            "class": "",
-                            "id": ""
-                        },
-                        "default_value": "",
-                        "placeholder": "",
-                        "prepend": "",
-                        "append": "",
-                        "maxlength": ""
-                    }
-                ]
+                "center_lat": "",
+                "center_lng": "",
+                "zoom": "",
+                "height": ""
             },
             {
                 "key": "field_5e5903dd161e7",

@@ -39,3 +39,11 @@ ul#acffields li {
 #importPropertiesForm label.itype input {
     margin-right: 2px;
 }
+.shortcodeInfo code {
+    font-weight: bold;
+}
+.shortcodeInfo .inner {
+    display: inline-block;
+    border: 1px solid #bdbdbd;
+    padding: 10px;
+}

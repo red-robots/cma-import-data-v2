@@ -10,11 +10,13 @@ if ( isset($_GET['downloadjson']) && $_GET['downloadjson'] ) { forceDownLoad($fi
     <?php } ?>
 
 
-    <p>
-        Use the shortcode <code>[cma-search-form perpage='20' action='']</code> to display the search form.<br>
-        'perpage' = Number of items to display per page.<br>
-        'action' = Results page' slug.
-    </p>
+    <div class="shortcodeInfo">
+        <div class="inner">
+            Use the shortcode <code>[cma-search-form perpage='20' action='']</code> to display the search form.<br>
+            '<i>perpage</i>' = Number of items to display per page.<br>
+            '<i>action</i>' = Results page URL.
+        </div>
+    </div>
     <p><a href="<?php echo $jsonFilePath; ?>" download target="_blank">Download this json file</a> and import it to ACF plugin.</p>
     <p style="margin:0 0 0"><strong>Custom Field Names:</strong></p>
     
