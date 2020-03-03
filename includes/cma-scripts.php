@@ -122,7 +122,8 @@ function do_import_entries($csvFileData,$data,$action) {
                                         /* Custom Fields */
                                         foreach($columns as $j=>$col) {
                                             $subFieldVal = ($values[$j]) ? $values[$j] : '';
-                                            $column_name = ( in_array($col, $coordinates) ) ? 'gmapLatLong_'.$col : $col;
+                                            //$column_name = ( in_array($col, $coordinates) ) ? 'gmapLatLong_'.$col : $col;
+                                            $column_name =  $col;
                                             cma_update_post_meta( $post_id, $column_name, $subFieldVal );
                                         }
                                         $result['items'][] = $post_id;
@@ -144,7 +145,8 @@ function do_import_entries($csvFileData,$data,$action) {
                                             /* Custom Fields */
                                             foreach($columns as $j=>$col) {
                                                 $subFieldVal = ($values[$j]) ? $values[$j] : '';
-                                                $column_name = ( in_array($col, $coordinates) ) ? 'gmapLatLong_'.$col : $col;
+                                                //$column_name = ( in_array($col, $coordinates) ) ? 'gmapLatLong_'.$col : $col;
+                                                $column_name =  $col;
                                                 cma_update_post_meta( $post_id, $column_name, $subFieldVal );
                                             }
 
@@ -194,12 +196,9 @@ function get_property_fieldnames() {
         'coupon_code'=>'Coupon Code',
         'community_name'=>'Community Name',
         'address'=>'Address',
-        'google_map'=>'Google Map Address',
         'manager_name'=>'Manager Name',
         'manager_phone'=>'Manager Phone',
-        'manager_email'=>'Manager Email',
-        // 'latitude'=>'Latitude',
-        // 'longitude'=>'Longitude'
+        'manager_email'=>'Manager Email'
     );
     return $custom_fields;
 }
